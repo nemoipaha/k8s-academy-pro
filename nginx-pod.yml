@@ -3,6 +3,9 @@ kind: Pod
 metadata:
   name: nginx-1
   namespace: bsa-pro
+  labels:
+    app: govnokod
+    env: development
 spec:
   containers:
     - name: nginx
@@ -12,4 +15,10 @@ spec:
       env:
         - name: PORT
           value: "8081"
-
+      resources:
+        limits:
+          cpu: 300m
+          memory: 128M
+        requests:
+          cpu: 200m
+          memory: 64M
