@@ -22,6 +22,7 @@ spec:
           image: nginx:1.17.9-alpine
           ports:
             - containerPort: 8081
+              name: input-nginx
           resources:
             limits:
               cpu: 300m
@@ -29,3 +30,15 @@ spec:
             requests:
               cpu: 200m
               memory: 64M
+          livenessProbe:
+            httpGet:
+              port: 8081
+              path: /
+            initialDelaySeconds: 10
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 3
