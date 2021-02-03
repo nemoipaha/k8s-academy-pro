@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    app: govnokod
+    env: development
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: govnokod
+  template:
+    metadata:
+      labels:
+        app: govnokod
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.17.9-alpine
+          ports:
+            - containerPort: 8081
+              name: input-nginx
+          resources:
+            limits:
+              cpu: 300m
+              memory: 128M
+            requests:
+              cpu: 200m
+              memory: 64M
+#          livenessProbe:
+#            httpGet:
+#              port: 8081
+#              path: /
+#            initialDelaySeconds: 10
+#            periodSeconds: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: 8081
+#            initialDelaySeconds: 10
+#            periodSeconds: 3
