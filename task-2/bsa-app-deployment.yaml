@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bsa-app-deployment
+  namespace: bsa-app
+  labels:
+    app: test
+spec:
+  selector:
+    matchLabels:
+      app: test
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: dgkanatsios-simpleapp
+          image: dgkanatsios/simpleapp
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http
